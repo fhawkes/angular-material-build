@@ -11459,8 +11459,8 @@ function MdAutocompleteCtrl ($scope, $element, $mdUtil, $mdConstant, $timeout, $
   //-- event/change handlers
 
   function selectedItemChange (selectedItem, previousSelectedItem) {
-    if (selectedItem) {
-      $scope.searchText = getDisplayValue(selectedItem);
+    if (selectedItem && $scope.searchText !== null) {
+      $scope.searchText = ($scope.searchText === "" ? "" : getDisplayValue(selectedItem));
     }
     if ($scope.itemChange && selectedItem !== previousSelectedItem)
       $scope.itemChange(getItemScope(selectedItem));
@@ -11589,7 +11589,7 @@ function MdAutocompleteCtrl ($scope, $element, $mdUtil, $mdConstant, $timeout, $
   }
 
   function isMinLengthMet () {
-    return $scope.searchText && $scope.searchText.length >= getMinLength();
+    return (angular.isUndefined($scope.searchText) ? 0 : $scope.searchText.length) >= getMinLength();
   }
 
   //-- actions
