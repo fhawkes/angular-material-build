@@ -970,65 +970,6 @@ input {
     @include layout-for-name($name);
 }
 
-// !!Important - Theme-based Background-color can be configured in backdrop-theme.scss
-//             - Animate background-color opacityy only for `.md-opaque` styles
-
-md-backdrop {
-  transition: opacity 450ms;
-
-  position: absolute;
-  top:0;
-  bottom:0;
-  left: 0;
-  right: 0;
-
-  z-index: $z-index-backdrop;
-
-  &._md-menu-backdrop {
-    position: fixed !important;
-    z-index: $z-index-menu - 1;
-  }
-  &._md-select-backdrop {
-    z-index: $z-index-dialog + 1;
-    transition-duration: 0;
-  }
-  &._md-dialog-backdrop {
-    z-index: $z-index-dialog - 1;
-  }
-  &._md-bottom-sheet-backdrop {
-    z-index: $z-index-bottom-sheet - 1;
-  }
-  &._md-sidenav-backdrop {
-    z-index: $z-index-sidenav - 1;
-  }
-
-
-  &._md-click-catcher {
-    position: absolute;
-  }
-
-  &.md-opaque {
-
-    opacity: .48;
-
-    &.ng-enter {
-      opacity: 0;
-    }
-    &.ng-enter.md-opaque.ng-enter-active {
-      opacity: .48;
-    }
-    &.ng-leave {
-      opacity: .48;
-      transition: opacity 400ms;
-    }
-    &.ng-leave.md-opaque.ng-leave-active {
-      opacity: 0;
-    }
-  }
-
-}
-
-
 $autocomplete-option-height: 48px;
 
 @keyframes md-autocomplete-list-out {
@@ -1261,241 +1202,64 @@ md-autocomplete {
   }
 }
 
-$button-border-radius: 3px !default;
-$button-fab-border-radius: 50% !default;
-$button-icon-border-radius: $button-fab-border-radius;
+// !!Important - Theme-based Background-color can be configured in backdrop-theme.scss
+//             - Animate background-color opacityy only for `.md-opaque` styles
 
-$button-line-height: rem(3.60) !default;
-$button-margin: rem(0.600) rem(0.800) !default;
-$button-min-width: rem(8.800) !default;
-$button-padding: 0 $button-left-right-padding !default;
+md-backdrop {
+  transition: opacity 450ms;
+
+  position: absolute;
+  top:0;
+  bottom:0;
+  left: 0;
+  right: 0;
+
+  z-index: $z-index-backdrop;
+
+  &._md-menu-backdrop {
+    position: fixed !important;
+    z-index: $z-index-menu - 1;
+  }
+  &._md-select-backdrop {
+    z-index: $z-index-dialog + 1;
+    transition-duration: 0;
+  }
+  &._md-dialog-backdrop {
+    z-index: $z-index-dialog - 1;
+  }
+  &._md-bottom-sheet-backdrop {
+    z-index: $z-index-bottom-sheet - 1;
+  }
+  &._md-sidenav-backdrop {
+    z-index: $z-index-sidenav - 1;
+  }
 
 
-// Fab buttons
-$button-fab-line-height: rem(5.600) !default;
-$button-fab-mini-width: rem(4.00) !default;
-$button-fab-mini-height: rem(4.00) !default;
-$button-fab-mini-line-height: rem(4.00) !default;
+  &._md-click-catcher {
+    position: absolute;
+  }
 
-$button-fab-toast-offset: $button-fab-height * 0.75 !default;
+  &.md-opaque {
 
-$icon-button-height: rem(4.000) !default;
-$icon-button-width: rem(4.000) !default;
-$icon-button-margin: rem(0.600) !default;
+    opacity: .48;
 
-// Fix issue causing buttons in Firefox to be 2px bigger than they should
-button.md-button::-moz-focus-inner {
-  border: 0;
+    &.ng-enter {
+      opacity: 0;
+    }
+    &.ng-enter.md-opaque.ng-enter-active {
+      opacity: .48;
+    }
+    &.ng-leave {
+      opacity: .48;
+      transition: opacity 400ms;
+    }
+    &.ng-leave.md-opaque.ng-leave-active {
+      opacity: 0;
+    }
+  }
+
 }
 
-.md-button {
-  border-radius: $button-border-radius;
-  box-sizing: border-box;
-  color: currentColor;
-
-  user-select: none;
-  position: relative; //for child absolute-positioned <canvas>
-
-  outline: none;
-  border: 0;
-  display: inline-block;
-  align-items: center;
-  padding: $button-padding;
-  margin: $button-margin;
-  line-height: $button-line-height;
-  min-height: $button-line-height;
-  background: transparent;
-  white-space: nowrap;
-  // override for FAB, icon buttons, etc.
-  min-width: $button-min-width;
-
-  text-align: center;
-
-  // Always uppercase buttons
-  text-transform: uppercase;
-  font-weight: 500;
-  font-size: $body-font-size-base;
-  font-style: inherit;
-  font-variant: inherit;
-  font-family: inherit;
-  text-decoration: none;
-
-  cursor: pointer;
-  overflow: hidden;   // for ink containment
-
-  transition: box-shadow $swift-ease-out-duration $swift-ease-out-timing-function,
-              background-color $swift-ease-out-duration $swift-ease-out-timing-function;
-
-  &:focus {
-    outline: none;
-  }
-
-  &:hover, &:focus {
-    text-decoration: none;
-  }
-
-  &.ng-hide, &.ng-leave {
-    transition: none;
-  }
-
-  &.md-cornered {
-    border-radius: 0;
-  }
-
-  &.md-icon {
-    padding: 0;
-    background: none;
-  }
-
-  &.md-raised {
-    &:not([disabled]) {
-      @include md-shadow-bottom-z-1();
-    }
-  }
-
-  &.md-icon-button {
-    margin: 0 $icon-button-margin;
-    height: $icon-button-height;
-    min-width: 0;
-    line-height: $icon-size;
-    padding: $baseline-grid;
-    width: $icon-button-width;
-    border-radius: $button-icon-border-radius;
-    .md-ripple-container {
-      border-radius: $button-icon-border-radius;
-      background-clip: padding-box;
-      overflow: hidden;
-      // The following hack causes Safari/Chrome to respect overflow hidden for ripples
-      -webkit-mask-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC');
-    }
-  }
-
-  &.md-fab {
-
-    // Include the top/left/bottom/right fab positions
-    @include fab-all-positions();
-
-    z-index: $z-index-fab;
-
-    line-height: $button-fab-line-height;
-
-    min-width: 0;
-    width: $button-fab-width;
-    height: $button-fab-height;
-    vertical-align: middle;
-
-    @include md-shadow-bottom-z-1();
-    border-radius: $button-fab-border-radius;
-    background-clip: padding-box;
-    overflow: hidden;
-
-    transition: $swift-ease-in;
-    transition-property: background-color, box-shadow, transform;
-    .md-ripple-container {
-      border-radius: $button-fab-border-radius;
-      background-clip: padding-box;
-      overflow: hidden;
-      // The following hack causes Safari/Chrome to respect overflow hidden for ripples
-      -webkit-mask-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC');
-    }
-
-    &.md-mini {
-      line-height: $button-fab-mini-line-height;
-      width: $button-fab-mini-width;
-      height: $button-fab-mini-height;
-    }
-
-    &.ng-hide, &.ng-leave {
-      transition: none;
-    }
-  }
-
-  &:not([disabled]) {
-    &.md-raised,
-    &.md-fab {
-      &.md-focused {
-        @include md-shadow-bottom-z-1();
-      }
-      &:active {
-        @include md-shadow-bottom-z-2();
-      }
-    }
-  }
-
-  .md-ripple-container {
-    border-radius: $button-border-radius;
-    background-clip: padding-box;
-    overflow: hidden;
-    // The following hack causes Safari/Chrome to respect overflow hidden for ripples
-    -webkit-mask-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC');
-  }
-}
-
-._md-toast-open-top {
-  .md-button.md-fab-top-left,
-  .md-button.md-fab-top-right {
-    transition: $swift-ease-out;
-    transform: translate3d(0, $button-fab-toast-offset, 0);
-    &:not([disabled]) {
-      &.md-focused,
-      &:hover {
-        transform: translate3d(0, $button-fab-toast-offset - 1, 0);
-      }
-    }
-  }
-}
-
-._md-toast-open-bottom {
-  .md-button.md-fab-bottom-left,
-  .md-button.md-fab-bottom-right {
-    transition: $swift-ease-out;
-    transform: translate3d(0, -$button-fab-toast-offset, 0);
-    &:not([disabled]) {
-      &.md-focused,
-      &:hover {
-        transform: translate3d(0, -$button-fab-toast-offset - 1, 0);
-      }
-    }
-  }
-}
-
-.md-button-group {
-  display: flex;
-  flex: 1;
-  width: 100%;
-
-  & > .md-button {
-    flex: 1;
-
-    display: block;
-
-    overflow: hidden;
-
-    width: 0;
-
-    border-width: 1px 0px 1px 1px;
-    border-radius: 0;
-
-    text-align: center;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    &:first-child {
-      border-radius: 2px 0px 0px 2px;
-    }
-    &:last-child {
-      border-right-width: 1px;
-      border-radius: 0px 2px 2px 0px;
-    }
-  }
-}
-// IE only
-@media screen and (-ms-high-contrast: active) {
-  .md-button.md-raised,
-  .md-button.md-fab {
-    border: 1px solid #fff;
-  }
-}
 
 $bottom-sheet-horizontal-padding: 2 * $baseline-grid !default;
 $bottom-sheet-vertical-padding: 1 * $baseline-grid !default;
@@ -1885,37 +1649,241 @@ md-card {
 }
 
 
-md-content {
+$button-border-radius: 3px !default;
+$button-fab-border-radius: 50% !default;
+$button-icon-border-radius: $button-fab-border-radius;
 
-  display: block;
-  position: relative;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
+$button-line-height: rem(3.60) !default;
+$button-margin: rem(0.600) rem(0.800) !default;
+$button-min-width: rem(8.800) !default;
+$button-padding: 0 $button-left-right-padding !default;
 
-  &[md-scroll-y] {
-    overflow-y: auto;
-    overflow-x: hidden;
+
+// Fab buttons
+$button-fab-line-height: rem(5.600) !default;
+$button-fab-mini-width: rem(4.00) !default;
+$button-fab-mini-height: rem(4.00) !default;
+$button-fab-mini-line-height: rem(4.00) !default;
+
+$button-fab-toast-offset: $button-fab-height * 0.75 !default;
+
+$icon-button-height: rem(4.000) !default;
+$icon-button-width: rem(4.000) !default;
+$icon-button-margin: rem(0.600) !default;
+
+// Fix issue causing buttons in Firefox to be 2px bigger than they should
+button.md-button::-moz-focus-inner {
+  border: 0;
+}
+
+.md-button {
+  border-radius: $button-border-radius;
+  box-sizing: border-box;
+  color: currentColor;
+
+  user-select: none;
+  position: relative; //for child absolute-positioned <canvas>
+
+  outline: none;
+  border: 0;
+  display: inline-block;
+  align-items: center;
+  padding: $button-padding;
+  margin: $button-margin;
+  line-height: $button-line-height;
+  min-height: $button-line-height;
+  background: transparent;
+  white-space: nowrap;
+  // override for FAB, icon buttons, etc.
+  min-width: $button-min-width;
+
+  text-align: center;
+
+  // Always uppercase buttons
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: $body-font-size-base;
+  font-style: inherit;
+  font-variant: inherit;
+  font-family: inherit;
+  text-decoration: none;
+
+  cursor: pointer;
+  overflow: hidden;   // for ink containment
+
+  transition: box-shadow $swift-ease-out-duration $swift-ease-out-timing-function,
+              background-color $swift-ease-out-duration $swift-ease-out-timing-function;
+
+  &:focus {
+    outline: none;
   }
-  &[md-scroll-x] {
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
-  &[md-scroll-xy] {
+
+  &:hover, &:focus {
+    text-decoration: none;
   }
 
-  // For iOS allow disabling of momentum scrolling
-  // @see issue #2640.
-
-  &.md-no-momentum {
-    -webkit-overflow-scrolling: auto;
+  &.ng-hide, &.ng-leave {
+    transition: none;
   }
 
-  @media print {
-    overflow: visible !important;
+  &.md-cornered {
+    border-radius: 0;
+  }
+
+  &.md-icon {
+    padding: 0;
+    background: none;
+  }
+
+  &.md-raised {
+    &:not([disabled]) {
+      @include md-shadow-bottom-z-1();
+    }
+  }
+
+  &.md-icon-button {
+    margin: 0 $icon-button-margin;
+    height: $icon-button-height;
+    min-width: 0;
+    line-height: $icon-size;
+    padding: $baseline-grid;
+    width: $icon-button-width;
+    border-radius: $button-icon-border-radius;
+    .md-ripple-container {
+      border-radius: $button-icon-border-radius;
+      background-clip: padding-box;
+      overflow: hidden;
+      // The following hack causes Safari/Chrome to respect overflow hidden for ripples
+      -webkit-mask-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC');
+    }
+  }
+
+  &.md-fab {
+
+    // Include the top/left/bottom/right fab positions
+    @include fab-all-positions();
+
+    z-index: $z-index-fab;
+
+    line-height: $button-fab-line-height;
+
+    min-width: 0;
+    width: $button-fab-width;
+    height: $button-fab-height;
+    vertical-align: middle;
+
+    @include md-shadow-bottom-z-1();
+    border-radius: $button-fab-border-radius;
+    background-clip: padding-box;
+    overflow: hidden;
+
+    transition: $swift-ease-in;
+    transition-property: background-color, box-shadow, transform;
+    .md-ripple-container {
+      border-radius: $button-fab-border-radius;
+      background-clip: padding-box;
+      overflow: hidden;
+      // The following hack causes Safari/Chrome to respect overflow hidden for ripples
+      -webkit-mask-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC');
+    }
+
+    &.md-mini {
+      line-height: $button-fab-mini-line-height;
+      width: $button-fab-mini-width;
+      height: $button-fab-mini-height;
+    }
+
+    &.ng-hide, &.ng-leave {
+      transition: none;
+    }
+  }
+
+  &:not([disabled]) {
+    &.md-raised,
+    &.md-fab {
+      &.md-focused {
+        @include md-shadow-bottom-z-1();
+      }
+      &:active {
+        @include md-shadow-bottom-z-2();
+      }
+    }
+  }
+
+  .md-ripple-container {
+    border-radius: $button-border-radius;
+    background-clip: padding-box;
+    overflow: hidden;
+    // The following hack causes Safari/Chrome to respect overflow hidden for ripples
+    -webkit-mask-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC');
   }
 }
 
+._md-toast-open-top {
+  .md-button.md-fab-top-left,
+  .md-button.md-fab-top-right {
+    transition: $swift-ease-out;
+    transform: translate3d(0, $button-fab-toast-offset, 0);
+    &:not([disabled]) {
+      &.md-focused,
+      &:hover {
+        transform: translate3d(0, $button-fab-toast-offset - 1, 0);
+      }
+    }
+  }
+}
 
+._md-toast-open-bottom {
+  .md-button.md-fab-bottom-left,
+  .md-button.md-fab-bottom-right {
+    transition: $swift-ease-out;
+    transform: translate3d(0, -$button-fab-toast-offset, 0);
+    &:not([disabled]) {
+      &.md-focused,
+      &:hover {
+        transform: translate3d(0, -$button-fab-toast-offset - 1, 0);
+      }
+    }
+  }
+}
+
+.md-button-group {
+  display: flex;
+  flex: 1;
+  width: 100%;
+
+  & > .md-button {
+    flex: 1;
+
+    display: block;
+
+    overflow: hidden;
+
+    width: 0;
+
+    border-width: 1px 0px 1px 1px;
+    border-radius: 0;
+
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:first-child {
+      border-radius: 2px 0px 0px 2px;
+    }
+    &:last-child {
+      border-right-width: 1px;
+      border-radius: 0px 2px 2px 0px;
+    }
+  }
+}
+// IE only
+@media screen and (-ms-high-contrast: active) {
+  .md-button.md-raised,
+  .md-button.md-fab {
+    border: 1px solid #fff;
+  }
+}
 
 $checkbox-width: 20px !default;
 $checkbox-height: $checkbox-width !default;
@@ -2275,153 +2243,38 @@ $contact-chip-name-width: rem(12) !default;
 }
 
 
-$dialog-padding: $baseline-grid * 3;
+md-content {
 
-.md-dialog-is-showing {
-  max-height: 100%;
-}
-
-.md-dialog-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: $z-index-dialog;
-  overflow: hidden;
-}
-
-md-dialog {
-
-  &._md-transition-in {
-    opacity: 1;
-    transition: $swift-ease-out;
-    transform: translate(0,0) scale(1.0);
-  }
-  &._md-transition-out {
-    opacity: 0;
-    transition: $swift-ease-out;
-    transform: translate(0,100%) scale(0.2);
-  }
-
-  opacity: 0;
-  min-width: 240px;
-  max-width: 80%;
-  max-height: 80%;
-  position: relative;
-  overflow: auto; // stop content from leaking out of dialog parent and fix IE
-
-  box-shadow: $whiteframe-shadow-13dp;
-
-  display: flex;
-  flex-direction: column;
-
-  &> form {
-    display: flex;
-    flex-direction: column;
-    overflow: auto;
-  }
-
-  .md-dialog-content {
-    padding: $dialog-padding;
-  }
-
-  md-dialog-content {
-    order: 1;
-    flex-direction: column;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-
-    &:not([layout=row]) > *:first-child:not(.md-subheader) {
-      margin-top: 0;
-    }
-
-    &:focus {
-      outline: none;
-    }
-
-    .md-subheader {
-      margin: 0;
-    }
-
-    ._md-dialog-content-body {
-      width:100%;
-    }
-
-    .md-prompt-input-container {
-      width: 100%;
-      box-sizing: border-box;
-    }
-  }
-
-  .md-actions, md-dialog-actions {
-    display: flex;
-    order: 2;
-    box-sizing: border-box;
-    align-items: center;
-    justify-content: flex-end;
-    margin-bottom: 0;
-    @include rtl(padding-right, $baseline-grid, $baseline-grid * 2);
-    @include rtl(padding-left, $baseline-grid * 2, $baseline-grid);
-    min-height: $baseline-grid * 6.5;
-    overflow: hidden;
-
-    .md-button {
-      margin-bottom: $baseline-grid;
-      @include rtl(margin-left, $baseline-grid, 0);
-      @include rtl(margin-right, 0, $baseline-grid);
-      margin-top: $baseline-grid;
-    }
-  }
-  &.md-content-overflow {
-    .md-actions, md-dialog-actions {
-      border-top-width: 1px;
-      border-top-style: solid;
-    }
-  }
-
-}
-
-@media screen and (-ms-high-contrast: active) {
-  md-dialog {
-    border: 1px solid #fff;
-  }
-}
-
-@media (max-width: $layout-breakpoint-sm - 1) {
-  md-dialog.md-dialog-fullscreen {
-    min-height: 100%;
-    min-width: 100%;
-    border-radius: 0;
-  }
-}
-
-md-divider {
   display: block;
-  border-top-width: 1px;
-  border-top-style: solid;
-  margin: 0;
+  position: relative;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 
-  &[md-inset] {
-    @include rtl-prop(margin-left, margin-right, $baseline-grid * 10);
+  &[md-scroll-y] {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  &[md-scroll-x] {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  &[md-scroll-xy] {
+  }
+
+  // For iOS allow disabling of momentum scrolling
+  // @see issue #2640.
+
+  &.md-no-momentum {
+    -webkit-overflow-scrolling: auto;
+  }
+
+  @media print {
+    overflow: visible !important;
   }
 }
 
-.layout-row,
-.layout-xs-row, .layout-gt-xs-row,
-.layout-sm-row, .layout-gt-sm-row,
-.layout-md-row, .layout-gt-md-row,
-.layout-lg-row, .layout-gt-lg-row,
-.layout-xl-row {
-  & > md-divider {
-    border-top-width: 0;
-    border-right-width: 1px;
-    border-right-style: solid;
-  }
-}
+
+
 /** Styles for mdCalendar. */
 $md-calendar-cell-size: 44px !default;
 $md-calendar-header-height: 40px;
@@ -2785,6 +2638,153 @@ md-datepicker[disabled] {
   }
 }
 
+$dialog-padding: $baseline-grid * 3;
+
+.md-dialog-is-showing {
+  max-height: 100%;
+}
+
+.md-dialog-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: $z-index-dialog;
+  overflow: hidden;
+}
+
+md-dialog {
+
+  &._md-transition-in {
+    opacity: 1;
+    transition: $swift-ease-out;
+    transform: translate(0,0) scale(1.0);
+  }
+  &._md-transition-out {
+    opacity: 0;
+    transition: $swift-ease-out;
+    transform: translate(0,100%) scale(0.2);
+  }
+
+  opacity: 0;
+  min-width: 240px;
+  max-width: 80%;
+  max-height: 80%;
+  position: relative;
+  overflow: auto; // stop content from leaking out of dialog parent and fix IE
+
+  box-shadow: $whiteframe-shadow-13dp;
+
+  display: flex;
+  flex-direction: column;
+
+  &> form {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+  }
+
+  .md-dialog-content {
+    padding: $dialog-padding;
+  }
+
+  md-dialog-content {
+    order: 1;
+    flex-direction: column;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    &:not([layout=row]) > *:first-child:not(.md-subheader) {
+      margin-top: 0;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    .md-subheader {
+      margin: 0;
+    }
+
+    ._md-dialog-content-body {
+      width:100%;
+    }
+
+    .md-prompt-input-container {
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+
+  .md-actions, md-dialog-actions {
+    display: flex;
+    order: 2;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 0;
+    @include rtl(padding-right, $baseline-grid, $baseline-grid * 2);
+    @include rtl(padding-left, $baseline-grid * 2, $baseline-grid);
+    min-height: $baseline-grid * 6.5;
+    overflow: hidden;
+
+    .md-button {
+      margin-bottom: $baseline-grid;
+      @include rtl(margin-left, $baseline-grid, 0);
+      @include rtl(margin-right, 0, $baseline-grid);
+      margin-top: $baseline-grid;
+    }
+  }
+  &.md-content-overflow {
+    .md-actions, md-dialog-actions {
+      border-top-width: 1px;
+      border-top-style: solid;
+    }
+  }
+
+}
+
+@media screen and (-ms-high-contrast: active) {
+  md-dialog {
+    border: 1px solid #fff;
+  }
+}
+
+@media (max-width: $layout-breakpoint-sm - 1) {
+  md-dialog.md-dialog-fullscreen {
+    min-height: 100%;
+    min-width: 100%;
+    border-radius: 0;
+  }
+}
+
+md-divider {
+  display: block;
+  border-top-width: 1px;
+  border-top-style: solid;
+  margin: 0;
+
+  &[md-inset] {
+    @include rtl-prop(margin-left, margin-right, $baseline-grid * 10);
+  }
+}
+
+.layout-row,
+.layout-xs-row, .layout-gt-xs-row,
+.layout-sm-row, .layout-gt-sm-row,
+.layout-md-row, .layout-gt-md-row,
+.layout-lg-row, .layout-gt-lg-row,
+.layout-xl-row {
+  & > md-divider {
+    border-top-width: 0;
+    border-right-width: 1px;
+    border-right-style: solid;
+  }
+}
 md-fab-speed-dial {
   position: relative;
   display: flex;
@@ -4226,18 +4226,6 @@ md-menu-content._md-menu-bar-menu.md-dense {
   }
 }
 
-// Used to avoid unnecessary layout
-md-progress-circular {
-    position: relative;
-
-    svg {
-        position: absolute;
-        overflow: visible;
-        top: 0;
-        left: 0;
-    }
-}
-
 $progress-linear-bar-height: 5px !default;
 
 md-progress-linear {
@@ -4442,6 +4430,18 @@ md-progress-linear {
 }
 
 
+
+// Used to avoid unnecessary layout
+md-progress-circular {
+    position: relative;
+
+    svg {
+        position: absolute;
+        overflow: visible;
+        top: 0;
+        left: 0;
+    }
+}
 
 $radio-width: 20px !default;
 $radio-height: $radio-width !default;
@@ -5468,171 +5468,6 @@ md-slider-container {
   }
 }
 
-$switch-width: 36px !default;
-$switch-height: $baseline-grid * 3 !default;
-$switch-bar-height: 14px !default;
-$switch-thumb-size: 20px !default;
-$switch-margin: 16px !default;
-
-.md-inline-form {
-  md-switch {
-    margin-top: 18px;
-    margin-bottom: 19px;
-  }
-}
-
-md-switch {
-  margin: $switch-margin 0;
-  white-space: nowrap;
-  cursor: pointer;
-  outline: none;
-  user-select: none;
-  height: 30px;
-  line-height: 28px;
-  align-items: center;
-  display: flex;
-
-  @include rtl(margin-left, inherit, $switch-margin);
-  @include rtl(margin-right, $switch-margin, inherit);
-
-  &:last-of-type {
-    @include rtl(margin-left, inherit, 0);
-    @include rtl(margin-right, 0, inherit);
-  }
-  
-  &[disabled] {
-    cursor: default;
-
-    ._md-container {
-      cursor: default;
-    }
-  }
-
-  ._md-container {
-    cursor: grab;
-    width: $switch-width;
-    height: $switch-height;
-    position: relative;
-    user-select: none;
-    @include rtl-prop(margin-right, margin-left, 8px);
-    float: left;
-  }
-
-  // If the user moves his mouse off the switch, stil display grabbing cursor
-  &:not([disabled]) {
-    ._md-dragging,
-    &._md-dragging ._md-container {
-      cursor: grabbing;
-    }
-  }
-
-  &.md-focused:not([disabled]) {
-    ._md-thumb:before {
-      left: -8px;
-      top: -8px;
-      right: -8px;
-      bottom: -8px;
-    }
-
-    &:not(.md-checked) {
-      ._md-thumb:before {
-        background-color: rgba(0, 0, 0, 0.12);
-      }
-    }
-  }
-
-  ._md-label {
-    border-color: transparent;
-    border-width: 0;
-    float: left;
-  }
-
-  ._md-bar {
-    left: 1px;
-    width: $switch-width - 2px;
-    top: $switch-height / 2 - $switch-bar-height / 2;
-    height: $switch-bar-height;
-    border-radius: 8px;
-    position: absolute;
-  }
-
-  ._md-thumb-container {
-    top: $switch-height / 2 - $switch-thumb-size / 2;
-    left: 0;
-    width: $switch-width - $switch-thumb-size;
-    position: absolute;
-    transform: translate3d(0,0,0);
-    z-index: 1;
-  }
-  &.md-checked ._md-thumb-container {
-    transform: translate3d(100%,0,0);
-  }
-
-  ._md-thumb {
-    position: absolute;
-    margin: 0;
-    left: 0;
-    top: 0;
-    outline: none;
-    height: $switch-thumb-size;
-    width: $switch-thumb-size;
-    border-radius: 50%;
-    box-shadow: $whiteframe-shadow-1dp;
-
-    &:before {
-      background-color: transparent;
-      border-radius: 50%;
-      content: '';
-      position: absolute;
-      display: block;
-      height: auto;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      transition: all 0.5s;
-      width: auto;
-    }
-
-    .md-ripple-container {
-      position: absolute;
-      display: block;
-      width: auto;
-      height: auto;
-      left: -$switch-thumb-size;
-      top: -$switch-thumb-size;
-      right: -$switch-thumb-size;
-      bottom: -$switch-thumb-size;
-    }
-  }
-
-  &:not(._md-dragging) {
-    ._md-bar,
-    ._md-thumb-container,
-    ._md-thumb {
-      transition: $swift-linear;
-      transition-property: transform, background-color;
-    }
-    ._md-bar,
-    ._md-thumb {
-      transition-delay: 0.05s;
-    }
-  }
-
-}
-
-@media screen and (-ms-high-contrast: active) {
-  md-switch.md-default-theme ._md-bar {
-    background-color: #666;
-  }
-  md-switch.md-default-theme.md-checked ._md-bar {
-    background-color: #9E9E9E;
-  }
-  md-switch.md-default-theme ._md-thumb {
-    background-color: #fff;
-  }
-}
-
 $subheader-line-height: 1em !default;
 $subheader-font-size: rem(1.4) !default;
 $subheader-padding: ($baseline-grid * 2) !default;
@@ -5699,220 +5534,6 @@ $subheader-sticky-shadow: 0px 2px 4px 0 rgba(0,0,0,0.16) !default;
     z-index: 1;
     position: relative;
   }
-}
-
-// See height set globally, depended on by buttons
-
-$md-toast-content-padding: 3 * $baseline-grid - $button-left-right-padding;
-$md-toast-button-left-margin: 3 * $baseline-grid - 2 * $button-left-right-padding;
-$md-toast-text-padding: $button-left-right-padding;
-
-
-.md-toast-text {
-  padding: 0 $md-toast-text-padding;
-}
-
-md-toast {
-  position: absolute;
-  z-index: $z-index-toast;
-
-  box-sizing: border-box;
-  cursor: default;
-  overflow: hidden;
-
-  // Add some padding to the outer toast container so that the wrapper's box shadow is visible
-  padding: $toast-margin;
-
-  // Setup opacity transition on whole toast
-  opacity: 1;
-  transition: $swift-ease-out;
-
-  .md-toast-content {
-    display: flex;
-    align-items: center;
-
-    height: 0;
-    max-height: 7 * $toast-height;
-    max-width: 100%;
-    min-height: 48px;
-    padding: 0 $md-toast-content-padding;
-
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-    border-radius: 2px;
-    font-size: 14px;
-
-    overflow: hidden;
-
-    // Setup for transform transitions on inner content
-    transform: translate3d(0, 0, 0) rotateZ(0deg);
-    transition: $swift-ease-out;
-
-    @include rtl(justify-content, flex-start, flex-end);
-  }
-
-  &.md-capsule {
-    border-radius: 24px;
-
-    .md-toast-content {
-      border-radius: 24px;
-    }
-  }
-
-  &.ng-leave-active {
-    .md-toast-content {
-      transition: $swift-ease-in;
-    }
-  }
-
-  /* Transition differently when swiping */
-  &._md-swipeleft,
-  &._md-swiperight,
-  &._md-swipeup,
-  &._md-swipedown {
-    .md-toast-content {
-      transition: $swift-ease-out;
-    }
-  }
-
-  &.ng-enter {
-    opacity: 0;
-    .md-toast-content {
-      transform: translate3d(0, 100%, 0);
-    }
-    &._md-top {
-      .md-toast-content {
-        transform: translate3d(0, -100%, 0);
-      }
-    }
-    &.ng-enter-active {
-      opacity: 1;
-      .md-toast-content {
-        transform: translate3d(0, 0, 0);
-      }
-    }
-  }
-  /*
-   * When the toast doesn't take up the whole screen,
-   * make it rotate when the user swipes it away
-   */
-  &.ng-leave.ng-leave-active {
-    .md-toast-content {
-      opacity: 0;
-      transform: translate3d(0, 100%, 0);
-    }
-
-    &._md-swipeup {
-      .md-toast-content {
-        transform: translate3d(0, -50%, 0);
-      }
-    }
-    &._md-swipedown {
-      .md-toast-content {
-        transform: translate3d(0, 50%, 0);
-      }
-    }
-    &._md-top {
-      .md-toast-content {
-        transform: translate3d(0, -100%, 0);
-      }
-    }
-  }
-
-  .md-action {
-    line-height: 19px;
-    margin-left: 24px;
-    margin-right: 0;
-    cursor: pointer;
-    text-transform: uppercase;
-    float: right;
-  }
-
-  .md-button {
-    min-width: 0;
-    @include rtl(margin-right, 0, $md-toast-button-left-margin);
-    @include rtl(margin-left, $md-toast-button-left-margin, 0);
-  }
-}
-
-@media (max-width: $layout-breakpoint-sm - 1) {
-  md-toast {
-    left: 0;
-    right: 0;
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    border-radius: 0;
-    bottom: 0;
-    padding: 0;
-
-    &.ng-leave.ng-leave-active {
-      &._md-swipeup {
-        .md-toast-content {
-          transform: translate3d(0, -50%, 0);
-        }
-      }
-      &._md-swipedown {
-        .md-toast-content {
-          transform: translate3d(0, 50%, 0);
-        }
-      }
-    }
-  }
-}
-
-@media (min-width: $layout-breakpoint-sm) {
-  md-toast {
-    min-width: 288px + $toast-margin * 2;
-    &._md-bottom {
-      bottom: 0;
-    }
-    &._md-left {
-      left: 0;
-    }
-    &._md-right {
-      right: 0;
-    }
-    &._md-top {
-      top: 0;
-    }
-
-    /*
-   * When the toast doesn't take up the whole screen,
-   * make it rotate when the user swipes it away
-   */
-    &.ng-leave.ng-leave-active {
-      &._md-swipeleft {
-        .md-toast-content {
-          transform: translate3d(-50%, 0, 0);
-        }
-      }
-      &._md-swiperight {
-        .md-toast-content {
-          transform: translate3d(50%, 0, 0);
-        }
-      }
-    }
-  }
-}
-
-@media (min-width: $layout-breakpoint-lg) {
-  md-toast {
-    .md-toast-content {
-      max-width: $baseline-grid * 71;
-    }
-  }
-}
-
-@media screen and (-ms-high-contrast: active) {
-  md-toast {
-    border: 1px solid #fff;
-  }
-}
-
-
-// While animating, set the toast parent's overflow to hidden so scrollbars do not appear
-._md-toast-animating {
-  overflow: hidden !important;
 }
 
 $tabs-paginator-width: $baseline-grid * 4 !default;
@@ -6204,77 +5825,383 @@ md-toolbar + md-tabs {
   border-top-right-radius: 0;
 }
 
-$tooltip-fontsize-lg: rem(1);
-$tooltip-fontsize-sm: rem(1.4);
-$tooltip-height-lg: rem(2.2);
-$tooltip-height-sm: rem(3.2);
-$tooltip-top-margin-lg: rem(1.4);
-$tooltip-top-margin-sm: rem(2.4);
-$tooltip-lr-padding-lg: rem(0.8);
-$tooltip-lr-padding-sm: rem(1.6);
-$tooltip-max-width: rem(3.20);
+$switch-width: 36px !default;
+$switch-height: $baseline-grid * 3 !default;
+$switch-bar-height: 14px !default;
+$switch-thumb-size: 20px !default;
+$switch-margin: 16px !default;
 
-md-tooltip {
-  position: absolute;
-  z-index: $z-index-tooltip;
-  overflow: hidden;
-  pointer-events: none;
-  border-radius: 4px;
+.md-inline-form {
+  md-switch {
+    margin-top: 18px;
+    margin-bottom: 19px;
+  }
+}
 
-  font-weight: 500;
-  font-size: $tooltip-fontsize-sm;
-  @media (min-width: $layout-breakpoint-sm) {
-    font-size: $tooltip-fontsize-lg;
+md-switch {
+  margin: $switch-margin 0;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  height: 30px;
+  line-height: 28px;
+  align-items: center;
+  display: flex;
+
+  @include rtl(margin-left, inherit, $switch-margin);
+  @include rtl(margin-right, $switch-margin, inherit);
+
+  &:last-of-type {
+    @include rtl(margin-left, inherit, 0);
+    @include rtl(margin-right, 0, inherit);
+  }
+  
+  &[disabled] {
+    cursor: default;
+
+    ._md-container {
+      cursor: default;
+    }
   }
 
-  ._md-content {
+  ._md-container {
+    cursor: grab;
+    width: $switch-width;
+    height: $switch-height;
     position: relative;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transform-origin: center top;
-    transform: scale(0);
-    opacity: 0;
-    height: $tooltip-height-sm;
-    line-height: $tooltip-height-sm;
-    padding-left: $tooltip-lr-padding-sm;
-    padding-right: $tooltip-lr-padding-sm;
-    @media (min-width: $layout-breakpoint-sm) {
-      height: $tooltip-height-lg;
-      line-height: $tooltip-height-lg;
-      padding-left: $tooltip-lr-padding-lg;
-      padding-right: $tooltip-lr-padding-lg;
+    user-select: none;
+    @include rtl-prop(margin-right, margin-left, 8px);
+    float: left;
+  }
+
+  // If the user moves his mouse off the switch, stil display grabbing cursor
+  &:not([disabled]) {
+    ._md-dragging,
+    &._md-dragging ._md-container {
+      cursor: grabbing;
     }
-    &._md-show-add {
-      transition: $swift-ease-out;
-      transition-duration: .2s;
-      transform: scale(0);
-      opacity: 0;
+  }
+
+  &.md-focused:not([disabled]) {
+    ._md-thumb:before {
+      left: -8px;
+      top: -8px;
+      right: -8px;
+      bottom: -8px;
     }
-    &._md-show, &._md-show-add-active {
-      transform: scale(1);
-      opacity: 1;
-      transform-origin: center top;
-    }
-    &._md-show-remove {
-      transition: $swift-ease-out;
-      transition-duration: .2s;
-      &._md-show-remove-active {
-        transform: scale(0);
-        opacity: 0;
+
+    &:not(.md-checked) {
+      ._md-thumb:before {
+        background-color: rgba(0, 0, 0, 0.12);
       }
     }
   }
 
-  &._md-hide {
-    transition: $swift-ease-in;
+  ._md-label {
+    border-color: transparent;
+    border-width: 0;
+    float: left;
   }
 
-  &._md-show {
-    transition: $swift-ease-out;
-    pointer-events: auto;
-    will-change: opacity, height, width;
+  ._md-bar {
+    left: 1px;
+    width: $switch-width - 2px;
+    top: $switch-height / 2 - $switch-bar-height / 2;
+    height: $switch-bar-height;
+    border-radius: 8px;
+    position: absolute;
   }
+
+  ._md-thumb-container {
+    top: $switch-height / 2 - $switch-thumb-size / 2;
+    left: 0;
+    width: $switch-width - $switch-thumb-size;
+    position: absolute;
+    transform: translate3d(0,0,0);
+    z-index: 1;
+  }
+  &.md-checked ._md-thumb-container {
+    transform: translate3d(100%,0,0);
+  }
+
+  ._md-thumb {
+    position: absolute;
+    margin: 0;
+    left: 0;
+    top: 0;
+    outline: none;
+    height: $switch-thumb-size;
+    width: $switch-thumb-size;
+    border-radius: 50%;
+    box-shadow: $whiteframe-shadow-1dp;
+
+    &:before {
+      background-color: transparent;
+      border-radius: 50%;
+      content: '';
+      position: absolute;
+      display: block;
+      height: auto;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      transition: all 0.5s;
+      width: auto;
+    }
+
+    .md-ripple-container {
+      position: absolute;
+      display: block;
+      width: auto;
+      height: auto;
+      left: -$switch-thumb-size;
+      top: -$switch-thumb-size;
+      right: -$switch-thumb-size;
+      bottom: -$switch-thumb-size;
+    }
+  }
+
+  &:not(._md-dragging) {
+    ._md-bar,
+    ._md-thumb-container,
+    ._md-thumb {
+      transition: $swift-linear;
+      transition-property: transform, background-color;
+    }
+    ._md-bar,
+    ._md-thumb {
+      transition-delay: 0.05s;
+    }
+  }
+
+}
+
+@media screen and (-ms-high-contrast: active) {
+  md-switch.md-default-theme ._md-bar {
+    background-color: #666;
+  }
+  md-switch.md-default-theme.md-checked ._md-bar {
+    background-color: #9E9E9E;
+  }
+  md-switch.md-default-theme ._md-thumb {
+    background-color: #fff;
+  }
+}
+
+// See height set globally, depended on by buttons
+
+$md-toast-content-padding: 3 * $baseline-grid - $button-left-right-padding;
+$md-toast-button-left-margin: 3 * $baseline-grid - 2 * $button-left-right-padding;
+$md-toast-text-padding: $button-left-right-padding;
+
+
+.md-toast-text {
+  padding: 0 $md-toast-text-padding;
+}
+
+md-toast {
+  position: absolute;
+  z-index: $z-index-toast;
+
+  box-sizing: border-box;
+  cursor: default;
+  overflow: hidden;
+
+  // Add some padding to the outer toast container so that the wrapper's box shadow is visible
+  padding: $toast-margin;
+
+  // Setup opacity transition on whole toast
+  opacity: 1;
+  transition: $swift-ease-out;
+
+  .md-toast-content {
+    display: flex;
+    align-items: center;
+
+    height: 0;
+    max-height: 7 * $toast-height;
+    max-width: 100%;
+    min-height: 48px;
+    padding: 0 $md-toast-content-padding;
+
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    border-radius: 2px;
+    font-size: 14px;
+
+    overflow: hidden;
+
+    // Setup for transform transitions on inner content
+    transform: translate3d(0, 0, 0) rotateZ(0deg);
+    transition: $swift-ease-out;
+
+    @include rtl(justify-content, flex-start, flex-end);
+  }
+
+  &.md-capsule {
+    border-radius: 24px;
+
+    .md-toast-content {
+      border-radius: 24px;
+    }
+  }
+
+  &.ng-leave-active {
+    .md-toast-content {
+      transition: $swift-ease-in;
+    }
+  }
+
+  /* Transition differently when swiping */
+  &._md-swipeleft,
+  &._md-swiperight,
+  &._md-swipeup,
+  &._md-swipedown {
+    .md-toast-content {
+      transition: $swift-ease-out;
+    }
+  }
+
+  &.ng-enter {
+    opacity: 0;
+    .md-toast-content {
+      transform: translate3d(0, 100%, 0);
+    }
+    &._md-top {
+      .md-toast-content {
+        transform: translate3d(0, -100%, 0);
+      }
+    }
+    &.ng-enter-active {
+      opacity: 1;
+      .md-toast-content {
+        transform: translate3d(0, 0, 0);
+      }
+    }
+  }
+  /*
+   * When the toast doesn't take up the whole screen,
+   * make it rotate when the user swipes it away
+   */
+  &.ng-leave.ng-leave-active {
+    .md-toast-content {
+      opacity: 0;
+      transform: translate3d(0, 100%, 0);
+    }
+
+    &._md-swipeup {
+      .md-toast-content {
+        transform: translate3d(0, -50%, 0);
+      }
+    }
+    &._md-swipedown {
+      .md-toast-content {
+        transform: translate3d(0, 50%, 0);
+      }
+    }
+    &._md-top {
+      .md-toast-content {
+        transform: translate3d(0, -100%, 0);
+      }
+    }
+  }
+
+  .md-action {
+    line-height: 19px;
+    margin-left: 24px;
+    margin-right: 0;
+    cursor: pointer;
+    text-transform: uppercase;
+    float: right;
+  }
+
+  .md-button {
+    min-width: 0;
+    @include rtl(margin-right, 0, $md-toast-button-left-margin);
+    @include rtl(margin-left, $md-toast-button-left-margin, 0);
+  }
+}
+
+@media (max-width: $layout-breakpoint-sm - 1) {
+  md-toast {
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    border-radius: 0;
+    bottom: 0;
+    padding: 0;
+
+    &.ng-leave.ng-leave-active {
+      &._md-swipeup {
+        .md-toast-content {
+          transform: translate3d(0, -50%, 0);
+        }
+      }
+      &._md-swipedown {
+        .md-toast-content {
+          transform: translate3d(0, 50%, 0);
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $layout-breakpoint-sm) {
+  md-toast {
+    min-width: 288px + $toast-margin * 2;
+    &._md-bottom {
+      bottom: 0;
+    }
+    &._md-left {
+      left: 0;
+    }
+    &._md-right {
+      right: 0;
+    }
+    &._md-top {
+      top: 0;
+    }
+
+    /*
+   * When the toast doesn't take up the whole screen,
+   * make it rotate when the user swipes it away
+   */
+    &.ng-leave.ng-leave-active {
+      &._md-swipeleft {
+        .md-toast-content {
+          transform: translate3d(-50%, 0, 0);
+        }
+      }
+      &._md-swiperight {
+        .md-toast-content {
+          transform: translate3d(50%, 0, 0);
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $layout-breakpoint-lg) {
+  md-toast {
+    .md-toast-content {
+      max-width: $baseline-grid * 71;
+    }
+  }
+}
+
+@media screen and (-ms-high-contrast: active) {
+  md-toast {
+    border: 1px solid #fff;
+  }
+}
+
+
+// While animating, set the toast parent's overflow to hidden so scrollbars do not appear
+._md-toast-animating {
+  overflow: hidden !important;
 }
 
 // Standard/Desktop Heights
@@ -6442,6 +6369,79 @@ md-toolbar {
   }
 }
 
+
+$tooltip-fontsize-lg: rem(1);
+$tooltip-fontsize-sm: rem(1.4);
+$tooltip-height-lg: rem(2.2);
+$tooltip-height-sm: rem(3.2);
+$tooltip-top-margin-lg: rem(1.4);
+$tooltip-top-margin-sm: rem(2.4);
+$tooltip-lr-padding-lg: rem(0.8);
+$tooltip-lr-padding-sm: rem(1.6);
+$tooltip-max-width: rem(3.20);
+
+md-tooltip {
+  position: absolute;
+  z-index: $z-index-tooltip;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: 4px;
+
+  font-weight: 500;
+  font-size: $tooltip-fontsize-sm;
+  @media (min-width: $layout-breakpoint-sm) {
+    font-size: $tooltip-fontsize-lg;
+  }
+
+  ._md-content {
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transform-origin: center top;
+    transform: scale(0);
+    opacity: 0;
+    height: $tooltip-height-sm;
+    line-height: $tooltip-height-sm;
+    padding-left: $tooltip-lr-padding-sm;
+    padding-right: $tooltip-lr-padding-sm;
+    @media (min-width: $layout-breakpoint-sm) {
+      height: $tooltip-height-lg;
+      line-height: $tooltip-height-lg;
+      padding-left: $tooltip-lr-padding-lg;
+      padding-right: $tooltip-lr-padding-lg;
+    }
+    &._md-show-add {
+      transition: $swift-ease-out;
+      transition-duration: .2s;
+      transform: scale(0);
+      opacity: 0;
+    }
+    &._md-show, &._md-show-add-active {
+      transform: scale(1);
+      opacity: 1;
+      transform-origin: center top;
+    }
+    &._md-show-remove {
+      transition: $swift-ease-out;
+      transition-duration: .2s;
+      &._md-show-remove-active {
+        transform: scale(0);
+        opacity: 0;
+      }
+    }
+  }
+
+  &._md-hide {
+    transition: $swift-ease-in;
+  }
+
+  &._md-show {
+    transition: $swift-ease-out;
+    pointer-events: auto;
+    will-change: opacity, height, width;
+  }
+}
 
 $virtual-repeat-scrollbar-width: 16px;
 
